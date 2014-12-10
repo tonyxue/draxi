@@ -4,4 +4,4 @@ cz88.net, proxyhttp.net and proxy-list.org
 
 #Dependencies
 ```Node.js``` + [```cheerio```](https://github.com/cheeriojs/cheerio) + node
-```http``` module
+```http``` module + node ```redis``` module
