@@ -1,7 +1,4 @@
 var http = require("http");
-
-// Utility function that downloads a URL and invokes
-// callback with the data.
 function download(url, callback) {
   http.get(url, function(res) {
     var data = "";
