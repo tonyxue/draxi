@@ -1,32 +1,40 @@
-var cheerio = require("cheerio");
-var downloadjs = require("./download.js");
+var casper = require ('casper').create({
+        verbose: true,
+        logLevel: "debug",
+        pageSettings: {
+                loadImages: false,
+        }
+});
+
 var baseUrl = "http://proxyhttp.net/free-list/anonymous-server-hide-ip-address/";
 var url = '';
-var maxPgNo = 9;
 var ip = '';
 var port = '';
 var country = '';
+var pgNo = '';
+var cssPath = '';
 
- for (var pgNo = 1; pgNo <= maxPgNo; pgNo++)
-{
+casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36'); 
+
+casper.start();
+
+casper.then(function(){
         url = baseUrl + pgNo;
-        download (url, function(data) {
-                if (data) {
-                        var $ = cheerio.load(data);
-                        for (var i = 2; i <= 21; i++)
-                        {
-                                ip = $("#incontent > table.proxytbl > tbody > tr:nth-child(" + i +") > td.t_ip").text();
-                                port = $("#incontent > table.proxytbl > tbody > tr:nth-child(" + i +") > td.t_port").text();
-                                country = $("#incontent > table.proxytbl > tbody > tr:nth-child(" + i +") > td.t_country").text();
-                                if ( country == "China")
+        this.open(url).then(function(){
+                for (var i = 2; i < 21; i++) {
+                        //'#incontent > table.proxytbl > tbody > tr:nth-child(' + i + ')> td.t_ip'
+                        cssPath = '#incontent > table.proxytbl > tbody > tr:nth-child(' + i + ')';
+                        if (this.exists(cssPath)) {
+                                ip = this.fetchText(cssPath + ' > td.t_ip');
+                                port = this.fetchText(cssPath + ' > td.t_port');
+                                port = port.substring(port.indexOf('>') + 1,port.length - 1).replace(/\s{1,}/g,"");
+                                country = this.fetchText(cssPath + ' > td.t_country');
+                                if (country == 'China')
                                 {
-                                        // Save into the database
+                                        this.echo(ip+':'+ port);
                                 }
                         }
                 }
-                else
-                {
-                        console.log("Error!");
-                }
-        })
-}
+        });
+});
+casper.run();
