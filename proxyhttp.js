@@ -1,10 +1,16 @@
 var casper = require ('casper').create({
-//       verbose: true,
-//        logLevel: "debug",
+        verbose: true,
+        logLevel: "debug",
         pageSettings: {
                 loadImages: false,
                 silentErrors: true //this must be enabled otherwise there would be irrelevant info in the output
         }
+});
+
+casper.on('page.resource.requested', function(requestData, request) {
+            if (requestData.url.indexOf('http://googleads.g.doubleclick.net/') === 0) {
+                request.abort();
+    }
 });
 
 var baseUrl = "http://proxyhttp.net/free-list/anonymous-server-hide-ip-address/";
@@ -21,7 +27,8 @@ casper.start();
 
 casper.then(function(){
         url = baseUrl + pgNo;
-        this.open(url).then(function(){
+        this.open(url);
+        this.then(function(){
                 for (var i = 2; i < 21; i++) {
                         //'#incontent > table.proxytbl > tbody > tr:nth-child(' + i + ')> td.t_ip'
                         cssPath = '#incontent > table.proxytbl > tbody > tr:nth-child(' + i + ')';
