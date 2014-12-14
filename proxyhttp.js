@@ -1,8 +1,9 @@
 var casper = require ('casper').create({
-        verbose: true,
-        logLevel: "debug",
+//       verbose: true,
+//        logLevel: "debug",
         pageSettings: {
                 loadImages: false,
+                silentErrors: true //this must be enabled otherwise there would be irrelevant info in the output
         }
 });
 
