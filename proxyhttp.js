@@ -8,11 +8,22 @@ var casper = require ('casper').create({
 });
 
 casper.on('page.resource.requested', function(requestData, request) {
-            if (requestData.url.indexOf('http://googleads.g.doubleclick.net/') === 0) {
+        if (requestData.url.indexOf('http://googleads.g.doubleclick.net/') === 0) {
                 request.abort();
-    }
+        }
+        else if (requestData.url.indexOf('https://www.google.com') === 0){
+                request.abort();
+        }
 });
 
+casper.on('navigation.requested', function(url, navigationType, navigationLocked, isMainFrame){
+        if (url.indexOf('http://googleads.g.doubleclick.net/') === 0)
+        {
+                this.echo("Requesting Google!Abort!!");
+                request.abort();
+                this.echo("Aborted!");
+        }
+});
 var baseUrl = "http://proxyhttp.net/free-list/anonymous-server-hide-ip-address/";
 var url = '';
 var ip = '';

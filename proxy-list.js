@@ -33,21 +33,4 @@ casper.start().each(urls,function(self, url){
         });
 });
 
-/*
-for (pgNo  = 1; pgNo <= maxPgNo; pgNo++)
-{
-        url = baseUrl + pgNo;
-        casper.open(url);
-        casper.then(function(){
-            while (this.fetchText('#proxy-table > div.table-wrap > div > ul:nth-child(' + row +') > li.proxy') != '')
-                {      
-                        ip = this.fetchText('#proxy-table > div.table-wrap > div > ul:nth-child(' + row +') > li.proxy');
-                        country = this.fetchText('#proxy-table > div.table-wrap > div > ul:nth-child(' + row + ') > li.country-city > div > span.country > span > span.name');
-                        this.echo(ip);
-
-                        row++;
-                }
-        });
-}
-*/
 casper.run();
