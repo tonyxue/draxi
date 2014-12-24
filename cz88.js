@@ -28,6 +28,8 @@ function sleep(sleepTime) {
                for(var start = Date.now(); Date.now() - start <= sleepTime; ) { } 
 }
 
+casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/  537.36');
+
 casper.start().each(urls, function(self, url)
 {
         self.thenOpen(url, function(){
