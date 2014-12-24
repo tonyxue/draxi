@@ -27,12 +27,7 @@ casper.on('navigation.requested', function(url, navigationType, navigationLocked
         }
 });
 var baseUrl = "http://proxyhttp.net/free-list/anonymous-server-hide-ip-address/";
-var url = '';
-var ip = '';
-var port = '';
-var country = '';
-var pgNo = '';
-var cssPath = '';
+var url,ip,port,country,pgNo,cssPath;
 
 casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36'); 
 

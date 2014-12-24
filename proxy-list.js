@@ -19,9 +19,7 @@ var urls = [
         'http://proxy-list.org/english/index.php?p=9',
         'http://proxy-list.org/english/index.php?p=10'
 ];
-var ip = ''
-var country = ''
-var row = '';
+var ip,country,row;
 
 //For each url in urls, open and fetch
 casper.start().each(urls,function(self, url){
