@@ -1,12 +1,14 @@
+//CasperJS initializations and settings
 var casper = require ('casper').create({
         verbose: true,
         logLevel: "debug",
         pageSettings: {
-                loadImages: false,
+                loadImages: false, // Do not load images to improve the loading speed
                 silentErrors: true //this must be enabled otherwise there would be irrelevant info in the output
         }
 });
 
+//Trying to disable requests to Google Ads but failed
 casper.on('page.resource.requested', function(requestData, request) {
         if (requestData.url.indexOf('http://googleads.g.doubleclick.net/') === 0) {
                 request.abort();
@@ -42,6 +44,7 @@ casper.then(function(){
         this.then(function(){
                 for (var i = 2; i < 21; i++) {
                         //'#incontent > table.proxytbl > tbody > tr:nth-child(' + i + ')> td.t_ip'
+                        //Css path of one row
                         cssPath = '#incontent > table.proxytbl > tbody > tr:nth-child(' + i + ')';
                         if (this.exists(cssPath)) {
                                 ip = this.fetchText(cssPath + ' > td.t_ip');

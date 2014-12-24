@@ -1,8 +1,9 @@
+//CasperJS initializations and settings
 var casper = require('casper').create({
         verbose: true,
         logLevel: "debug",
         pageSettings: {
-                loadImages: false,
+                loadImages: false, // Do not load images to improve loading speed
                 silentErrors: true //this must be enabled otherwise there would be irrelevant info in the output
         }
 });
@@ -22,6 +23,7 @@ var ip = ''
 var country = ''
 var row = '';
 
+//For each url in urls, open and fetch
 casper.start().each(urls,function(self, url){
         self.thenOpen(url,function(){
                 for(row = 1; row <= 27; row+=2)
