@@ -21,16 +21,25 @@ var urls = [
 ];
 var ip,country,row;
 
-casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/ 537.36');
+casper.userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) \
+                AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 \
+                Safari/ 537.36");
 
 //For each url in urls, open and fetch
 casper.start().each(urls,function(self, url){
         self.thenOpen(url,function(){
                 for(row = 1; row <= 27; row+=2)
                 {
-                        ip = this.fetchText('#proxy-table > div.table-wrap > div > ul:nth-child(' + row + ') > li.proxy');
-                        country = this.fetchText('#proxy-table > div.table-wrap > div > ul:nth-child(' + row + ') > li.country-city >       div > span.country > span > span.name');
-                        this.echo('Found:' + ip + '@' + country);
+                        ip = this.fetchText('#proxy-table > div.table-wrap > div\
+                                > ul:nth-child(' + row + ') > li.proxy');
+                        country = this.fetchText('#proxy-table > div.table-wrap\
+                                > div > ul:nth-child(' + row + ') >\
+                                li.country-city >       div > span.country >\
+                                span > span.name');
+                        if(country == 'China')
+                        {
+                                this.echo(ip);
+                        }
                 }
         });
 });
